@@ -50,13 +50,13 @@ public:
      * @param lhs: left hand side
      * @return returns true if (lhs.year) < rhs.year or (rhs.year == lhs.year & lhs.name < rhs.name) else return false
      */
-    bool operator<(Movie &rhs) const;
+    bool operator<(const Movie &rhs) const;
     /**
      * operator<< for movie
      * @param os ostream to output info with
      * @param movie movie to output
      */
-    friend std::ostream& operator<<(std::ostream& os,Movie& movie);
+    friend std::ostream& operator<<(std::ostream& os,const Movie& movie);
 
 };
 

@@ -47,6 +47,7 @@ noexcept (false)
       RSUser cur_user = RSUser (name, *sp_cur_rank_map, sp_rs);
       users_vec.push_back (cur_user);
     }
+  return users_vec;
 }
 
 

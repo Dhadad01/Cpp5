@@ -18,7 +18,7 @@ int Movie::get_year () const
 {
   return _year;
 }
-bool Movie::operator< (Movie &rhs) const
+bool Movie::operator< (const Movie &rhs) const
 {
   if(get_year()!=rhs.get_year()){
     return get_year()<rhs.get_year();
@@ -26,7 +26,7 @@ bool Movie::operator< (Movie &rhs) const
   //else
   return get_name()<rhs.get_name();
 }
-std::ostream &operator<< (std::ostream& os, Movie& movie)
+std::ostream &operator<< (std::ostream& os, const Movie& movie)
 {
   os<<movie.get_name()<<" ("<<movie.get_year()<<")"<<std::endl;
   return os;

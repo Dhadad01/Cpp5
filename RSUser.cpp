@@ -41,4 +41,5 @@ year,int k) const{
 }
 std::ostream& operator<<(std::ostream& os,RSUser &user){
   os<<"name: "<<user.get_name()<<std::endl;
+  return os;
 }
