@@ -30,6 +30,7 @@ RecommenderSystemLoader::create_rs_from_movies_file
     {
       if (stream.fail () || attribute > MAX_SIZE || attribute < MIN_SIZE)
       {
+        file.close();
         throw std::invalid_argument ("expected int but got float instead");
       }
       attributes_vec.push_back (attribute);

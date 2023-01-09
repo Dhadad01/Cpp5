@@ -61,6 +61,7 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
   }
   return movie;
 }
+
 void RecommenderSystem::noramlize (rank_map &normalized_rm)
 {
   double sum = 0;
@@ -130,6 +131,7 @@ sp_movie RecommenderSystem::recommend_by_cf (const RSUser &user, int k)
   }
   return best_movie;
 }
+
 double RecommenderSystem::predict_movie_score (const RSUser &user, const
 sp_movie &movie, int k)
 {
@@ -167,12 +169,6 @@ sp_movie &movie, int k)
       related_set.insert (it.first);
     }
   }
-
-//  sp_movie cur_best_movie= map_of_seen_movies.rbegin()->first;
-//  double relateness = map_of_seen_movies.rbegin()->second;
-
-//  }
-
   double sum = 0;
   double divide = 0;
   for (const auto &it: related_set)

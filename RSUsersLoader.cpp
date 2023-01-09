@@ -63,6 +63,7 @@ noexcept (false)
         cur_rank_map[movies_vec[i]] = NAN;
       }
       else{
+        file.close();
         throw std::invalid_argument("invalid argument");
       }
     }
