@@ -47,7 +47,7 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
     }
   }
   sp_movie movie = normalized_rm.begin ()->first;
-  double cur_relate = 0;
+  double cur_relate = -1;
   for (auto &it: normalized_rm)
   {
     if (std::isnan (it.second))
@@ -111,16 +111,11 @@ std::ostream &operator<< (std::ostream &os, RecommenderSystem &rs)
 sp_movie RecommenderSystem::recommend_by_cf (const RSUser &user, int k)
 {
   std::vector<sp_movie> unseen_movies;
-  std::vector<sp_movie> seen_movies;
   for (auto &it: user.get_ranks ())
   {
     if (std::isnan (it.second))
     {
       unseen_movies.push_back (it.first);
-    }
-    else
-    {
-      seen_movies.push_back (it.first);//TODO change
     }
   }
   double max = 0;

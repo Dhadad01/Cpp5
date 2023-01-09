@@ -12,6 +12,9 @@ RecommenderSystemLoader::create_rs_from_movies_file
     (const string &movies_file_path) noexcept (false)
 {
   std::ifstream file (movies_file_path);
+  if(!file.is_open()){
+    throw std::ios_base::failure("Unable to open file");
+  }
   RecommenderSystem rs;
   string line;
   while (std::getline (file, line))

@@ -48,7 +48,8 @@ class Movie
    * operator< for two movies
    * @param rhs: right hand side
    * @param lhs: left hand side
-   * @return returns true if (lhs.year) < rhs.year or (rhs.year == lhs.year & lhs.name < rhs.name) else return false
+   * @return returns true if (lhs.year) < rh
+   * s.year or (rhs.year == lhs.year & lhs.name < rhs.name) else return false
    */
   bool operator< (const Movie &rhs) const;
   /**

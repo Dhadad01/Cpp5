@@ -57,7 +57,8 @@ public:
 	sp_movie get_recommendation_by_content() const;
 
 	/**
-	 * returns a recommendation according to the similarity recommendation method
+	 * returns a recommendation according to the similarity recommendation
+	 * method
 	 * @param k the number of the most similar movies to calculate by
 	 * @return recommendation
 	 */
@@ -67,7 +68,8 @@ public:
 	 * predicts the score for a given movie
 	 * @param name the name of the movie
 	 * @param year the year the movie was created
-	 * @param k the parameter which represents the number of the most similar movies to predict the score by
+	 * @param k the parameter which represents the number of the most similar
+	 * movies to predict the score by
 	 * @return predicted score for the given movie
 	 */
 	double get_prediction_score_for_movie

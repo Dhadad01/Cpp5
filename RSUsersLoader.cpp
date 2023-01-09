@@ -15,6 +15,9 @@ noexcept (false)
 {
   std::shared_ptr<RecommenderSystem> sp_rs = std::move (rs);
   std::ifstream file (users_file_path);
+  if(!file.is_open()){
+    throw std::ios_base::failure("Unable to open file");
+  }
   string line;
   std::getline (file, line);
   string name;
@@ -46,14 +49,21 @@ noexcept (false)
     for (int i = 0; i < counter; i++)
     {
       stream1 >> rank;
+      if(rank=="10"){
+        cur_rank_map[movies_vec[i]] = std::stoi (rank);
+        continue;
+      }
       char c = rank[0];
       if (isdigit (c) && rank.length () == LENGTH_OF_DIGIT)
       {
         cur_rank_map[movies_vec[i]] = std::stoi (rank);
       }
-      else
+      else if(rank=="NA")
       {
         cur_rank_map[movies_vec[i]] = NAN;
+      }
+      else{
+        throw std::invalid_argument("invalid argument");
       }
     }
     std::shared_ptr<rank_map> sp_cur_rank_map =
