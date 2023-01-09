@@ -25,19 +25,7 @@ noexcept (false)
   std::vector<sp_movie> movies_vec;
   std::istringstream stream (line);
   int counter = 0;
-  while (std::getline (stream, name, HYPHEN))
-  {
-    size_t start = name.find_first_not_of (" \t");
-    if (start != std::string::npos)
-    {
-      name.erase (0, start);
-    }
-    counter++;
-    stream >> year;
-    sp_movie cur_movie = std::make_shared<Movie> (name, year);
-    movies_vec.push_back (cur_movie);
-  }
-
+  counter = get_first_line (name, year, movies_vec, stream, counter);
   string user_name;
   std::vector<RSUser> users_vec;
   string rank;
@@ -49,7 +37,8 @@ noexcept (false)
     for (int i = 0; i < counter; i++)
     {
       stream1 >> rank;
-      if(rank=="10"){
+      if(rank=="10")
+      {
         cur_rank_map[movies_vec[i]] = std::stoi (rank);
         continue;
       }
@@ -62,7 +51,8 @@ noexcept (false)
       {
         cur_rank_map[movies_vec[i]] = NAN;
       }
-      else{
+      else
+      {
         throw std::invalid_argument("invalid arguments from file");
       }
     }
@@ -72,4 +62,21 @@ noexcept (false)
     users_vec.push_back (cur_user);
   }
   return users_vec;
+}
+int
+RSUsersLoader::get_first_line (string &name, int year, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
+{
+  while (std::getline (stream, name, HYPHEN))
+  {
+    size_t start = name.find_first_not_of (" \t");
+    if (start != std::string::npos)
+    {
+      name.erase (0, start);
+    }
+    counter++;
+    stream >> year;
+    sp_movie cur_movie = std::make_shared<Movie> (name, year);
+    movies_vec.push_back (cur_movie);
+  }
+  return counter;
 }
