@@ -146,7 +146,7 @@ sp_movie &movie, int k)
   //get k best_movies
   for (const auto &it: map_of_seen_movies)
   {
-    if (related_set.size () < k)
+    if (int(related_set.size ()) < k)
     {
       related_set.insert (it.first);
       continue;

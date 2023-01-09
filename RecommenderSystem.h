@@ -9,7 +9,7 @@
 #include <vector>
 #include <memory>
 #include <map>
-struct Comp
+struct comp
 {
     bool operator() (const sp_movie &rhs, const sp_movie &lhs)
     {
@@ -17,7 +17,7 @@ struct Comp
     }
 };
 typedef std::vector<double> rate_vec;
-typedef std::map<sp_movie, rate_vec, Comp> movie_map;
+typedef std::map<sp_movie, rate_vec, comp> movie_map;
 typedef std::vector<sp_movie> all_movies_vec;
 
 class RecommenderSystem
