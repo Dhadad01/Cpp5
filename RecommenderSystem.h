@@ -11,7 +11,7 @@
 #include <map>
 struct Comp{
     bool operator()(const sp_movie &rhs,const sp_movie &lhs){
-      return rhs<lhs;
+      return *rhs<*lhs;
     }
 };
 typedef std::vector<double> rate_vec;
@@ -23,15 +23,16 @@ class RecommenderSystem
  private:
   movie_map _movie_map;//movie map is a dict that has shared pointer as a
   // key and vector of ranks as value
-  int _size_of_recommend_vec;
   static void noramlize (rank_map &normalized_rm) ;
   double
   find_relative (std::vector<double>& pref_vec, std::vector<double>
   &other);
+  static bool compareDoubleValues(const std::pair<sp_movie , double>& a, const
+  std::pair<sp_movie , double>& b);
 
 public:
 
-	//explicit RecommenderSystem()
+	explicit RecommenderSystem();
     /**
      * adds a new movie to the system
      * @param name name of movie
@@ -39,7 +40,6 @@ public:
      * @param features features for movie
      * @return shared pointer for movie in system
      */
-     RecommenderSystem();
 	sp_movie add_movie(const std::string& name,int year,const std::vector<double>& features);
 
 

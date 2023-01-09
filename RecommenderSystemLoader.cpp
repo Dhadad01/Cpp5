@@ -5,11 +5,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-std::unique_ptr<RecommenderSystem>
-RecommenderSystemLoader::create_rs_from_movies_file
+std::unique_ptr<RecommenderSystem>RecommenderSystemLoader::create_rs_from_movies_file
 (const string &movies_file_path) noexcept (false){
   std::ifstream file(movies_file_path);
-  std::unique_ptr<RecommenderSystem> recommender_system;
+  RecommenderSystem rs;
   string line;
   while (std::getline (file,line))
   {
@@ -26,8 +25,11 @@ RecommenderSystemLoader::create_rs_from_movies_file
       }
       attributes_vec.push_back (attribute);
     }
-    recommender_system->add_movie (name,year,attributes_vec);
+    rs.add_movie (name,year,attributes_vec);
   }
+  std::unique_ptr<RecommenderSystem> recommender_system =
+      std::make_unique<RecommenderSystem>(rs);
   return recommender_system;
 }
+
 
