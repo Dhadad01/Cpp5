@@ -85,7 +85,7 @@ sp_movie RecommenderSystem::get_movie (const std::string &name, int year) const
 {
   for (const auto &it: _movie_map)
   {
-    if (it.first->get_name () == name && it.first->get_year ())
+    if (it.first->get_name () == name && it.first->get_year ()==year)
     {
       return it.first;
     }
