@@ -14,7 +14,7 @@ double RecommenderSystem::find_relative (std::vector<double> &pref_vec,
   double n1 = 0;
   double n2 = 0;
   double s = 0;
-  for (int i = 0; i < pref_vec.size (); i++)
+  for (int i = 0; i <int(pref_vec.size ()); i++)
   {
     n1 += pref_vec[i] * pref_vec[i];
     n2 += other[i] * other[i];
@@ -30,7 +30,7 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
   rank_map normalized_rm = user.get_ranks ();
   noramlize (normalized_rm);
   std::vector<double> pref_vec;
-  for (int i = 0; i < _movie_map.begin ()->second.size (); i++)
+  for (int i = 0; i < int(_movie_map.begin ()->second.size ()); i++)
   {
     pref_vec.push_back (0);
   }
@@ -40,14 +40,14 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
     if (!std::isnan (it.second))
     {
       c = it.second;
-      for (int i = 0; i < pref_vec.size (); i++)
+      for (int i = 0; i < int(pref_vec.size ()); i++)
       {
         pref_vec[i] += _movie_map[it.first][i] * c;
       }
     }
   }
   sp_movie movie = normalized_rm.begin ()->first;
-  double cur_relate = 0;
+  double cur_relate = -1;
   for (auto &it: normalized_rm)
   {
     if (std::isnan (it.second))
@@ -146,7 +146,7 @@ sp_movie &movie, int k)
   //get k best_movies
   for (const auto &it: map_of_seen_movies)
   {
-    if (related_set.size () < k)
+    if (int(related_set.size ()) < k)
     {
       related_set.insert (it.first);
       continue;
