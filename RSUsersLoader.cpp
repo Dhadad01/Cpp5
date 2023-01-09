@@ -39,7 +39,6 @@ noexcept (false)
   string line;
   std::getline (file, line);
   string name;
-  int year;
   std::vector<sp_movie> movies_vec;
   std::istringstream stream (line);
   int counter = 0;
