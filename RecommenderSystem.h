@@ -26,7 +26,7 @@ class RecommenderSystem
   movie_map _movie_map;//movie map is a dict that has shared pointer as a
   // key and vector of ranks as value
   static void noramlize (rank_map &normalized_rm);
-  double
+  static double
   find_relative (std::vector<double> &pref_vec, std::vector<double>
   &other);
 
