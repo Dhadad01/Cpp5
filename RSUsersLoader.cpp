@@ -9,6 +9,23 @@
 #define LENGTH_OF_DIGIT 1
 #define HYPHEN '-'
 #define TEN 10
+int
+get_first_line (string &name, int year, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
+{
+  while (std::getline (stream, name, HYPHEN))
+  {
+    size_t start = name.find_first_not_of (" \t");
+    if (start != std::string::npos)
+    {
+      name.erase (0, start);
+    }
+    counter++;
+    stream >> year;
+    sp_movie cur_movie = std::make_shared<Movie> (name, year);
+    movies_vec.push_back (cur_movie);
+  }
+  return counter;
+}
 std::vector<RSUser> RSUsersLoader::create_users_from_file
     (const string &users_file_path, std::unique_ptr<RecommenderSystem> rs)
 noexcept (false)
@@ -63,20 +80,4 @@ noexcept (false)
   }
   return users_vec;
 }
-int
-RSUsersLoader::get_first_line (string &name, int year, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
-{
-  while (std::getline (stream, name, HYPHEN))
-  {
-    size_t start = name.find_first_not_of (" \t");
-    if (start != std::string::npos)
-    {
-      name.erase (0, start);
-    }
-    counter++;
-    stream >> year;
-    sp_movie cur_movie = std::make_shared<Movie> (name, year);
-    movies_vec.push_back (cur_movie);
-  }
-  return counter;
-}
+
