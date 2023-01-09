@@ -19,24 +19,9 @@ noexcept (false)
     throw std::ios_base::failure("Unable to open file");
   }
   string line;
-  std::getline (file, line);
-  string name;
-  int year;
   std::vector<sp_movie> movies_vec;
-  std::istringstream stream (line);
-  int counter = 0;
-  while (std::getline (stream, name, HYPHEN))
-  {
-    size_t start = name.find_first_not_of (" \t");
-    if (start != std::string::npos)
-    {
-      name.erase (0, start);
-    }
-    counter++;
-    stream >> year;
-    sp_movie cur_movie = std::make_shared<Movie> (name, year);
-    movies_vec.push_back (cur_movie);
-  }
+  int counter;
+  create_movies_vec (file, line, movies_vec, counter);
 
   string user_name;
   std::vector<RSUser> users_vec;
@@ -73,4 +58,25 @@ noexcept (false)
     users_vec.push_back (cur_user);
   }
   return users_vec;
+}
+void
+RSUsersLoader::create_movies_vec (std::ifstream &file, string &line, std::vector<sp_movie> &movies_vec, int &counter)
+{
+  counter= 0;
+  std::getline (file, line);
+  string name;
+  int year;
+  std::istringstream stream (line);
+  while (std::getline (stream, name, HYPHEN))
+  {
+    size_t start = name.find_first_not_of (" \t");
+    if (start != std::string::npos)
+    {
+      name.erase (0, start);
+    }
+    counter++;
+    stream >> year;
+    sp_movie cur_movie = std::make_shared<Movie> (name, year);
+    movies_vec.push_back (cur_movie);
+  }
 }
