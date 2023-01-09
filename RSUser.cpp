@@ -42,5 +42,7 @@ year, int k) const
 }
 std::ostream &operator<< (std::ostream &os, RSUser &user)
 {
-  return operator<< (os,user._recommender_system);
+  os<<"name: "<<user.get_name()<<std::endl;
+  os<< user._recommender_system;
+  return os;
 }
