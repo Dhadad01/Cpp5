@@ -58,9 +58,13 @@ noexcept (false)
       {
         cur_rank_map[movies_vec[i]] = std::stoi (rank);
       }
-      else
+      else if(rank=="NA")
       {
         cur_rank_map[movies_vec[i]] = NAN;
+      }
+      else{
+        file.close();
+        throw std::invalid_argument("invalid argument");
       }
     }
     std::shared_ptr<rank_map> sp_cur_rank_map =
