@@ -6,7 +6,7 @@
 #include <set>
 #include "algorithm"
 RecommenderSystem::RecommenderSystem ()
-= default;
+{}
 
 double RecommenderSystem::find_relative (std::vector<double> &pref_vec,
                                          std::vector<double> &other)
@@ -14,7 +14,7 @@ double RecommenderSystem::find_relative (std::vector<double> &pref_vec,
   double n1 = 0;
   double n2 = 0;
   double s = 0;
-  for (int i = 0; i < int(pref_vec.size ()); i++)
+  for (int i = 0; i < pref_vec.size (); i++)
   {
     n1 += pref_vec[i] * pref_vec[i];
     n2 += other[i] * other[i];
@@ -30,7 +30,7 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
   rank_map normalized_rm = user.get_ranks ();
   noramlize (normalized_rm);
   std::vector<double> pref_vec;
-  for (int i = 0; i < int(_movie_map.begin ()->second.size ()); i++)
+  for (int i = 0; i < _movie_map.begin ()->second.size (); i++)
   {
     pref_vec.push_back (0);
   }
@@ -40,14 +40,14 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
     if (!std::isnan (it.second))
     {
       c = it.second;
-      for (int i = 0; i < int(pref_vec.size ()); i++)
+      for (int i = 0; i < pref_vec.size (); i++)
       {
         pref_vec[i] += _movie_map[it.first][i] * c;
       }
     }
   }
   sp_movie movie = normalized_rm.begin ()->first;
-  double cur_relate = -1;
+  double cur_relate = 0;
   for (auto &it: normalized_rm)
   {
     if (std::isnan (it.second))
@@ -61,7 +61,6 @@ sp_movie RecommenderSystem::recommend_by_content (const RSUser &user)
   }
   return movie;
 }
-
 void RecommenderSystem::noramlize (rank_map &normalized_rm)
 {
   double sum = 0;
@@ -86,12 +85,12 @@ sp_movie RecommenderSystem::get_movie (const std::string &name, int year) const
 {
   for (const auto &it: _movie_map)
   {
-    if (it.first->get_name () == name && it.first->get_year ()==year)
+    if (it.first->get_name () == name && it.first->get_year ())
     {
       return it.first;
     }
   }
-  return {nullptr};
+  return sp_movie (nullptr);
 }
 sp_movie RecommenderSystem::add_movie (const std::string &name, int year,
                                        const std::vector<double> &features)
@@ -131,7 +130,6 @@ sp_movie RecommenderSystem::recommend_by_cf (const RSUser &user, int k)
   }
   return best_movie;
 }
-
 double RecommenderSystem::predict_movie_score (const RSUser &user, const
 sp_movie &movie, int k)
 {
@@ -148,7 +146,7 @@ sp_movie &movie, int k)
   //get k best_movies
   for (const auto &it: map_of_seen_movies)
   {
-    if (int(related_set.size ()) < k)
+    if (related_set.size () < k)
     {
       related_set.insert (it.first);
       continue;
@@ -169,6 +167,12 @@ sp_movie &movie, int k)
       related_set.insert (it.first);
     }
   }
+
+//  sp_movie cur_best_movie= map_of_seen_movies.rbegin()->first;
+//  double relateness = map_of_seen_movies.rbegin()->second;
+
+//  }
+
   double sum = 0;
   double divide = 0;
   for (const auto &it: related_set)

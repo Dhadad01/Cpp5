@@ -12,6 +12,12 @@
 void
 RSUsersLoader::get_first_line (const string &users_file_path, std::unique_ptr<RecommenderSystem> &rs, std::shared_ptr<RecommenderSystem> &sp_rs, std::ifstream &file, string &line, std::vector<sp_movie> &movies_vec, int &counter)
 {
+
+  }
+}
+std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
+&users_file_path, std::unique_ptr<RecommenderSystem> rs)noexcept (false)
+{
   sp_rs= std::move (rs);
   counter= 0;
   if(!file.is_open()){
@@ -32,11 +38,6 @@ RSUsersLoader::get_first_line (const string &users_file_path, std::unique_ptr<Re
     stream >> year;
     sp_movie cur_movie = std::make_shared<Movie> (name, year);
     movies_vec.push_back (cur_movie);
-  }
-}
-std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
-&users_file_path, std::unique_ptr<RecommenderSystem> rs)noexcept (false)
-{
   std::shared_ptr<RecommenderSystem> sp_rs;
   std::ifstream file;
   string line;
