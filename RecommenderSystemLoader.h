@@ -4,7 +4,8 @@
 
 #include "RecommenderSystem.h"
 
-class RecommenderSystemLoader {
+class RecommenderSystemLoader
+{
 
  private:
 
@@ -17,7 +18,7 @@ class RecommenderSystemLoader {
    * those movies
    */
   static std::unique_ptr<RecommenderSystem> create_rs_from_movies_file
-	  (const std::string &movies_file_path) noexcept (false);
+      (const std::string &movies_file_path) noexcept (false);
 };
 
 #endif //RECOMMENDERSYSTEMLOADER_H
