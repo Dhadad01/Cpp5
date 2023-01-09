@@ -47,9 +47,10 @@ noexcept (false)
       {
         cur_rank_map[movies_vec[i]] = NAN;
       }
-      else{
+      else
+      {
         file.close();
-        throw std::invalid_argument("invalid argument");
+        throw std::invalid_argument("invalid arguments error");
       }
     }
     std::shared_ptr<rank_map> sp_cur_rank_map =
