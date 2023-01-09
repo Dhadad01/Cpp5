@@ -7,11 +7,7 @@
 #include "algorithm"
 RecommenderSystem::RecommenderSystem ()
 {}
-bool RecommenderSystem::compareDoubleValues (const std::pair<sp_movie, double>
-    &a, const std::pair<sp_movie, double> &b)
-{
-  return a.second > b.second;
-}
+
 
 double RecommenderSystem::find_relative(std::vector<double>& pref_vec,
                                         std::vector<double>& other){
@@ -76,7 +72,7 @@ void RecommenderSystem::noramlize (rank_map &normalized_rm)
 }
 sp_movie RecommenderSystem::get_movie (const std::string &name, int year) const
 {
-  for (auto &it: _movie_map)
+  for (const auto &it: _movie_map)
   {
     if (it.first->get_name () == name && it.first->get_year ())
     {
@@ -95,7 +91,7 @@ sp_movie RecommenderSystem::add_movie (const std::string &name, int year,
 }
 std::ostream &operator<< (std::ostream &os, RecommenderSystem &rs)
 {
-  for (auto &it: rs._movie_map)
+  for (const auto &it: rs._movie_map)
   {
     os << *it.first;
   }
@@ -127,7 +123,7 @@ sp_movie RecommenderSystem::recommend_by_cf(const RSUser& user, int k){
 double RecommenderSystem::predict_movie_score(const RSUser &user, const
 sp_movie &movie,int k){
   std::map<sp_movie,double> map_of_seen_movies;
-  for (auto &it:user.get_ranks())
+  for (const auto &it:user.get_ranks())
   {
     if(!std::isnan (it.second)){
       map_of_seen_movies[it.first] = find_relative (_movie_map[movie],
@@ -136,14 +132,14 @@ sp_movie &movie,int k){
   }
   std::set<sp_movie> related_set;
   //get k best_movies
-  for (auto &it:map_of_seen_movies){
+  for (const auto &it:map_of_seen_movies){
     if (related_set.size()<k){
       related_set.insert (it.first);
       continue;
     }
     double cur_min = 1;
     sp_movie least_related;
-    for(auto &it2:related_set){
+    for(const auto &it2:related_set){
       if(cur_min>map_of_seen_movies[it2]){
         least_related = it2;
         cur_min = map_of_seen_movies[it2];
@@ -162,7 +158,7 @@ sp_movie &movie,int k){
 
   double sum = 0;
   double divide = 0;
-  for(auto &it:related_set){
+  for(const auto &it:related_set){
     divide+=map_of_seen_movies[it];
     sum+=map_of_seen_movies[it]*user.get_ranks().find (it)->second;
   }

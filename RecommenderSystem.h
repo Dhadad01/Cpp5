@@ -27,8 +27,6 @@ class RecommenderSystem
   double
   find_relative (std::vector<double>& pref_vec, std::vector<double>
   &other);
-  static bool compareDoubleValues(const std::pair<sp_movie , double>& a, const
-  std::pair<sp_movie , double>& b);
 
 public:
 

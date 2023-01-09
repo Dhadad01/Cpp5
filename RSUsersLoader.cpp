@@ -6,6 +6,9 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#define LENGTH_OF_DIGIT 1
+#define HYPHEN '-'
+#define TEN 10
 std::vector<RSUser> RSUsersLoader::create_users_from_file
 (const string &users_file_path,std::unique_ptr<RecommenderSystem> rs)
 noexcept (false)
@@ -19,7 +22,7 @@ noexcept (false)
     std::vector<sp_movie> movies_vec;
     std::istringstream stream(line);
     int counter = 0;
-    while (std::getline (stream,name,'-')){
+    while (std::getline (stream,name,HYPHEN)){
       size_t start = name.find_first_not_of(" \t");
       if (start != std::string::npos) {
         name.erase(0, start);
@@ -32,24 +35,23 @@ noexcept (false)
 
     string user_name;
     std::vector<RSUser> users_vec;
-    string rank = "";
+    string rank;
     int num=0;
 
   while (std::getline (file,line)){
-      rank_map cur_rank_map(10, sp_movie_hash, sp_movie_equal);
+      rank_map cur_rank_map(TEN, sp_movie_hash, sp_movie_equal);
       std::istringstream stream1(line);
       stream1>>user_name;
       for (int i = 0; i < counter; i++)
       {
         stream1>>rank;
         char c = rank[0];
-        if(isdigit(c)&&rank.length()==1){
+        if(isdigit(c)&&rank.length()==LENGTH_OF_DIGIT){
           cur_rank_map[movies_vec[i]] = std::stoi (rank);
         }
         else{
           cur_rank_map[movies_vec[i]] = NAN;
         }
-
       }
       std::shared_ptr<rank_map> sp_cur_rank_map =
           std::make_shared<rank_map>(cur_rank_map);
