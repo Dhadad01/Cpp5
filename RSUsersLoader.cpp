@@ -9,24 +9,22 @@
 #define LENGTH_OF_DIGIT 1
 #define HYPHEN '-'
 #define TEN 10
-void
-RSUsersLoader::get_first_line (const string &users_file_path, std::unique_ptr<RecommenderSystem> &rs, std::shared_ptr<RecommenderSystem> &sp_rs, std::ifstream &file, string &line, std::vector<sp_movie> &movies_vec, int &counter)
+std::vector<RSUser> RSUsersLoader::create_users_from_file
+    (const string &users_file_path, std::unique_ptr<RecommenderSystem> rs)
+noexcept (false)
 {
-
-  }
-}
-std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
-&users_file_path, std::unique_ptr<RecommenderSystem> rs)noexcept (false)
-{
-  sp_rs= std::move (rs);
-  counter= 0;
+  std::shared_ptr<RecommenderSystem> sp_rs = std::move (rs);
+  std::ifstream file (users_file_path);
   if(!file.is_open()){
     throw std::ios_base::failure("Unable to open file");
   }
+  string line;
   std::getline (file, line);
   string name;
   int year;
+  std::vector<sp_movie> movies_vec;
   std::istringstream stream (line);
+  int counter = 0;
   while (std::getline (stream, name, HYPHEN))
   {
     size_t start = name.find_first_not_of (" \t");
@@ -38,12 +36,8 @@ std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
     stream >> year;
     sp_movie cur_movie = std::make_shared<Movie> (name, year);
     movies_vec.push_back (cur_movie);
-  std::shared_ptr<RecommenderSystem> sp_rs;
-  std::ifstream file;
-  string line;
-  std::vector<sp_movie> movies_vec;
-  int counter;
-  get_first_line (users_file_path, rs, sp_rs, file, line, movies_vec, counter);
+  }
+
   string user_name;
   std::vector<RSUser> users_vec;
   string rank;
@@ -64,14 +58,9 @@ std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
       {
         cur_rank_map[movies_vec[i]] = std::stoi (rank);
       }
-      else if(rank=="NA")
-      {
-        cur_rank_map[movies_vec[i]] = NAN;
-      }
       else
       {
-        file.close();
-        throw std::invalid_argument("invalid argument");
+        cur_rank_map[movies_vec[i]] = NAN;
       }
     }
     std::shared_ptr<rank_map> sp_cur_rank_map =
@@ -81,4 +70,3 @@ std::vector<RSUser> RSUsersLoader::create_users_from_file(const string
   }
   return users_vec;
 }
-
