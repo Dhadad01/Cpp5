@@ -10,8 +10,9 @@
 #define HYPHEN '-'
 #define TEN 10
 int
-get_first_line (string &name, int year, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
+get_first_line (string &name, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
 {
+  int year;
   while (std::getline (stream, name, HYPHEN))
   {
     size_t start = name.find_first_not_of (" \t");
@@ -42,7 +43,7 @@ noexcept (false)
   std::vector<sp_movie> movies_vec;
   std::istringstream stream (line);
   int counter = 0;
-  counter = get_first_line (name, year, movies_vec, stream, counter);
+  counter = get_first_line (name, movies_vec, stream, counter);
   string user_name;
   std::vector<RSUser> users_vec;
   string rank;
