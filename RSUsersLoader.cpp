@@ -6,7 +6,6 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
-#define LENGTH_OF_DIGIT 1
 #define HYPHEN '-'
 #define TEN 10
 int

@@ -6,7 +6,7 @@
 #include <set>
 #include "algorithm"
 RecommenderSystem::RecommenderSystem ()
-{}
+= default;
 
 double RecommenderSystem::find_relative (std::vector<double> &pref_vec,
                                          std::vector<double> &other)

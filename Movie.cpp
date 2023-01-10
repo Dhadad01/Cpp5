@@ -1,5 +1,7 @@
 
 #include "Movie.h"
+
+#include <utility>
 #define HASH_START 17
 #define RES_MULT 31
 
@@ -8,7 +10,7 @@
  * @param movie shared pointer to movie
  * @return an integer for the hash map
  */
-Movie::Movie (const string &name, int year) : _year (year), _name (name)
+Movie::Movie (string name, int year) : _year (year), _name (std::move(name))
 {}
 const string &Movie::get_name () const
 {

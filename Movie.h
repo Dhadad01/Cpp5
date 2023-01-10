@@ -30,7 +30,7 @@ class Movie
    * @param name: name of movie
    * @param year: year it was made
    */
-  Movie (const string &name, int year);
+  Movie (string name, int year);
 
   /**
    * returns the name of the movie
