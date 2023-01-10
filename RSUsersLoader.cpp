@@ -54,23 +54,18 @@ noexcept (false)
     for (int i = 0; i < counter; i++)
     {
       stream1 >> rank;
-      if(rank=="10")
-      {
-        cur_rank_map[movies_vec[i]] = std::stoi (rank);
-        continue;
-      }
-      char c = rank[0];
-      if (isdigit (c) && rank.length () == LENGTH_OF_DIGIT)
-      {
-        cur_rank_map[movies_vec[i]] = std::stoi (rank);
-      }
-      else if(rank=="NA")
-      {
-        cur_rank_map[movies_vec[i]] = NAN;
+      if(rank!="NA"){
+        double new_rank = std::stoi (rank);
+        if(new_rank>10||new_rank<1){
+          cur_rank_map[movies_vec[i]] =new_rank;
+        }
+        else{
+          throw std::invalid_argument("invalid rank");
+        }
       }
       else
       {
-        throw std::invalid_argument("invalid arguments from file");
+        cur_rank_map[movies_vec[i]] = NAN;
       }
     }
     std::shared_ptr<rank_map> sp_cur_rank_map =
