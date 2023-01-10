@@ -56,7 +56,7 @@ noexcept (false)
       stream1 >> rank;
       if(rank!="NA"){
         double new_rank = std::stoi (rank);
-        if(new_rank>10||new_rank<1){
+        if(new_rank<=10&&new_rank>=1){
           cur_rank_map[movies_vec[i]] =new_rank;
         }
         else{
