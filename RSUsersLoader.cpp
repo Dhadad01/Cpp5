@@ -8,6 +8,7 @@
 #include <cmath>
 #define HYPHEN '-'
 #define TEN 10
+#define ONE 1
 int
 get_first_line (string &name, std::vector<sp_movie> &movies_vec, std::istringstream &stream, int counter)
 {
@@ -55,7 +56,7 @@ noexcept (false)
       stream1 >> rank;
       if(rank!="NA"){
         double new_rank = std::stoi (rank);
-        if(new_rank<=10&&new_rank>=1){
+        if(new_rank<=TEN&&new_rank>=ONE){
           cur_rank_map[movies_vec[i]] =new_rank;
         }
         else{
