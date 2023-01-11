@@ -21,7 +21,7 @@ RecommenderSystemLoader::create_rs_from_movies_file
   {
     string name;
     int year;
-    int attribute;
+    double attribute;
     std::vector<double> attributes_vec = {};
     std::istringstream stream (line);
     std::getline (stream, name, '-');
@@ -31,7 +31,7 @@ RecommenderSystemLoader::create_rs_from_movies_file
       if (stream.fail () || attribute > MAX_SIZE || attribute < MIN_SIZE)
       {
         file.close();
-        throw std::invalid_argument ("expected int but got float instead");
+        throw std::invalid_argument("invalid value");
       }
       attributes_vec.push_back (attribute);
     }
